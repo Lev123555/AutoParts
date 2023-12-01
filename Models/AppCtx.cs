@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using AutoParts.Models.Data;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace AutoParts.Models
@@ -10,5 +11,7 @@ namespace AutoParts.Models
         {
             Database.EnsureCreated();
         }
+
+        public DbSet<Spare> Spares { get; set; }
     }
 }

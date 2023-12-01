@@ -1,0 +1,84 @@
+﻿@model IEnumerable<AutoParts.Models.Data.Spare>
+
+@{
+    ViewData["Title"] = "Запчасти";
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Главная</a></li>
+        <li class="breadcrumb-item active">Запчасти</li>
+    </ol>
+</nav>
+<h2>Запчасти</h2>
+<h6>
+    <a class="btn text-dark" asp-action="Create">
+        <i class="far fa-plus-square"></i> Добавить запчасть
+    </a>
+</h6>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TitleSpare)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Article)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CarBrand)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CarModel)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TitleSpare)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Article)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CarBrand)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CarModel)
+            </td>
+            <td>
+                <a class="btn text-dark" asp-action="Details" asp-route-id="@item.Id" title="Посмотреть подробнее">
+                    <i class = "far fa-eye"></i>
+                </a>
+                <a class="btn text-dark" asp-action ="Edit" asp-route-id="@item.Id" title="Редактировать">
+                    <i class="fas fa-pencil-alt"></i>
+                </a>
+                <a class="btn text-dark" asp-action="Delete" asp-route-id="@item.Id" title="Удалить">
+                    <i class="fas fa-minus-square"></i>
+                </a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

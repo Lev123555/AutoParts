@@ -1,0 +1,73 @@
+﻿@model AutoParts.ViewModels.Spares.CreateSpareModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Главная</a></li>
+        <li class="breadcrumb-item active">Запчасти</li>
+        <li class="breadcrumb-item active">Создание</li>
+    </ol>
+</nav>
+
+<a class="btn text-dark" asp-action="Index" title = "Вернуться к списку">
+    <i class= "fa fa-arrow-left"></i>
+</a> 
+
+<h1>Добавить запчасть</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" asp-controller="Spares" asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="TitleSpare" class="control-label"></label>
+                <input asp-for="TitleSpare" class="form-control" />
+                <span asp-validation-for="TitleSpare" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Category" class="control-label"></label>
+                <input asp-for="Category" class="form-control" />
+                <span asp-validation-for="Category" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Article" class="control-label"></label>
+                <input asp-for="Article" class="form-control" />
+                <span asp-validation-for="Article" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CarBrand" class="control-label"></label>
+                <input asp-for="CarBrand" class="form-control" />
+                <span asp-validation-for="CarBrand" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CarModel" class="control-label"></label>
+                <input asp-for="CarModel" class="form-control" />
+                <span asp-validation-for="CarModel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Добавить" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@* <div>
+    <a asp-action="Index">Back to List</a>
+</div> *@
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

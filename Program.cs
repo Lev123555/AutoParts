@@ -1,4 +1,5 @@
 using AutoParts.Models;
+using AutoParts.Models.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
