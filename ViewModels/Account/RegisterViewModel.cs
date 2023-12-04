@@ -26,7 +26,6 @@ namespace AutoParts.ViewModels.Account
         [Compare("Password", ErrorMessage = "Пароли не совпадают")]
         [DataType(DataType.Password)]
         [Display(Name = "Подтвердить пароль")]
-        
-        public string Password1 { get; set; }
+        public string PasswordConfirm { get; set; }
     }
 }
