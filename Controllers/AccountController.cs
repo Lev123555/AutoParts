@@ -61,18 +61,18 @@ namespace AutoParts.Controllers
             return View(model);   // возвращение модели в представление
         }
 
-        /*[HttpGet]
+        [HttpGet]
         public IActionResult Login(string returnUrl = null)
         {
-            return View(new RegisterViewModel { ReturnUrl = returnUrl });
+            return View(new LoginViewModel { ReturnUrl = returnUrl });
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(RegisterViewModel model)
+        public async Task<IActionResult> Login(LoginViewModel model)
         {
-            *//*if (ModelState.IsValid)
-            {*//*
+            /*if (ModelState.IsValid)
+            {*/
             var result =
                 await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
 
@@ -90,14 +90,14 @@ namespace AutoParts.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            *//*}
+            /*}
             else
             {
                 ModelState.AddModelError("", "Неправильный логин и (или) пароль");
             }
 
-            return View(model);*//*
-        }*/
+            return View(model);*/
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
