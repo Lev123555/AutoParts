@@ -28,5 +28,8 @@ namespace AutoParts.Models.Data
         [DataType(DataType.Password)]
         [Display(Name = "Подтвердить пароль")]
         public string PasswordConfirm { get; set; }
+
+
+        public ICollection<Order> Order { get; set; }
     }
 }

@@ -1,0 +1,92 @@
+﻿@using AutoParts.Models.Data;
+@model PaginatedList<AutoParts.Models.Data.Order>
+
+@{
+    ViewData["Title"] = "Заказы";
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Главная</a></li>
+        <li class="breadcrumb-item active">Заказы</li>
+    </ol>
+</nav>
+<h2>Заказы</h2>
+<h6>
+    <a class="btn text-dark" asp-action="Create">
+        <i class="far fa-plus-square"></i> Создать новый заказ
+    </a>
+</h6>
+
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Найти по имени: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
+            <input type="submit" value="Найти" class="btn btn-default" /> |
+            <a asp-action="Index">Вернуться к полному списку</a>
+        </p>
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewBag.UserSort" asp-route-currentFilter="@ViewData["CurrentFilter"]">Email</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewBag.SpareSort" asp-route-currentFilter="@ViewData["CurrentFilter"]">TitleSpare</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewBag.DateOfRegSort" asp-route-currentFilter="@ViewData["CurrentFilter"]">DateOfReg</a>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+            <tr>
+                <td>
+                @Html.DisplayFor(modelItem => item.User.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Spare.TitleSpare)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateOfReg)
+            </td>
+            <td>
+                <a class="btn text-dark" asp-action="Details" asp-route-id="@item.Id" title="Посмотреть подробнее">
+                    <i class="far fa-eye"></i>
+                </a>
+                <a class="btn text-dark" asp-action="Edit" asp-route-id="@item.Id" title="Редактировать">
+                    <i class="fas fa-pencil-alt"></i>
+                </a>
+                <a class="btn text-dark" asp-action="Delete" asp-route-id="@item.Id" title="Удалить">
+                    <i class="fas fa-minus-square"></i>
+                </a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex - 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @prevDisabled">
+    Назад
+</a>
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex + 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @nextDisabled">
+    Вперёд
+</a>

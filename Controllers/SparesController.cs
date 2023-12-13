@@ -1,7 +1,6 @@
 ﻿using AutoParts.Models;
 using AutoParts.Models.Data;
 using AutoParts.ViewModels.Spares;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,11 +16,40 @@ namespace AutoParts.Controllers
         }
 
         // GET: Spares
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? pageNumber, string searchString, SpareSortState sortOrder = SpareSortState.SpareAsc)
         {
-              return _context.Spares != null ? 
-                          View(await _context.Spares.ToListAsync()) :
-                          Problem("Entity set 'AppCtx.Spares'  is null.");
+            ViewData["CurrentFilter"] = searchString;
+
+            var spares = from s in _context.Spares
+                            select s;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                spares = spares.Where(s => s.TitleSpare.Contains(searchString));
+            }
+
+            ViewData["TitleSort"] = sortOrder == SpareSortState.SpareAsc ? SpareSortState.SpareDesc : SpareSortState.SpareAsc;
+            ViewData["PriceSort"] = sortOrder == SpareSortState.PriceAsc ? SpareSortState.PriceDesc : SpareSortState.PriceAsc;
+            ViewData["CategorySort"] = sortOrder == SpareSortState.CategoryAsc ? SpareSortState.CategoryDesc : SpareSortState.CategoryAsc;
+            ViewData["CarBrandSort"] = sortOrder == SpareSortState.CarBrandAsc ? SpareSortState.CarBrandDesc : SpareSortState.CarBrandAsc;
+            ViewData["CarModelSort"] = sortOrder == SpareSortState.CarModelAsc ? SpareSortState.CarModelDesc : SpareSortState.CarModelAsc;
+
+            spares = sortOrder switch
+            {
+                SpareSortState.SpareDesc => spares.OrderByDescending(s => s.TitleSpare),
+                SpareSortState.PriceAsc => spares.OrderBy(s => s.Price),
+                SpareSortState.PriceDesc => spares.OrderByDescending(s => s.Price),
+                SpareSortState.CategoryAsc => spares.OrderBy(s => s.Category),
+                SpareSortState.CategoryDesc => spares.OrderByDescending(s => s.Category),
+                SpareSortState.CarBrandAsc => spares.OrderBy(s => s.CarBrand),
+                SpareSortState.CarBrandDesc => spares.OrderByDescending(s => s.CarBrand),
+                SpareSortState.CarModelAsc => spares.OrderBy(s => s.CarModel),
+                SpareSortState.CarModelDesc => spares.OrderByDescending(s => s.CarModel),
+                _ => spares.OrderBy(s => s.TitleSpare),
+            };
+
+            int pageSize = 3;
+            return View(await PaginatedList<Spare>.CreateAsync(spares.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: Spares/Details/5

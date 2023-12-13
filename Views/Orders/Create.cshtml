@@ -1,0 +1,47 @@
+﻿@model AutoParts.ViewModels.Orders.CreateOrderModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Главная</a></li>
+        <li class="breadcrumb-item active">Запчасти</li>
+        <li class="breadcrumb-item active">Создание</li>
+    </ol>
+</nav>
+
+<a class="btn text-dark" asp-action="Index" title="Вернуться к списку">
+    <i class="fa fa-arrow-left"></i>
+</a>
+<h1>Добавить заказ</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="IdUser" class="control-label"></label>
+                <select asp-for="IdUser" class="form-control" asp-items="ViewBag.IdUser"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdSpare" class="control-label"></label>
+                <select asp-for="IdSpare" class="form-control" asp-items="ViewBag.IdSpare"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateOfReg" class="control-label"></label>
+                <input asp-for="DateOfReg" class="form-control" />
+                <span asp-validation-for="DateOfReg" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Создать" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

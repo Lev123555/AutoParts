@@ -36,5 +36,7 @@ namespace AutoParts.Models.Data
         [Required(ErrorMessage = "Введите модель авто")]
         [Display(Name = "Модель")]
         public string CarModel { get; set; }
+
+        public ICollection<Order> Order { get; set; }
     }
 }

@@ -1,0 +1,50 @@
+﻿@model AutoParts.Models.Data.Order
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Главная</a></li>
+        <li class="breadcrumb-item active">Заказы</li>
+        <li class="breadcrumb-item active">Удаление</li>
+    </ol>
+</nav>
+
+<a class="btn text-dark" asp-action="Index" title="Вернуться к списку">
+    <i class="fa fa-arrow-left"></i>
+</a>
+
+<h1>Удаление</h1>
+
+<h3>Вы уверены, что хотите удалить этот заказ?</h3>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IdUser)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IdUser)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IdSpare)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IdSpare)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DateOfReg)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DateOfReg)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Удалить" class="btn btn-danger" />
+        @* <a asp-action="Index">Back to List</a> *@
+    </form>
+</div>

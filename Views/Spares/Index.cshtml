@@ -1,4 +1,5 @@
-﻿@model IEnumerable<AutoParts.Models.Data.Spare>
+﻿@* @model IEnumerable<AutoParts.Models.Data.Spare> *@
+@model PaginatedList<AutoParts.Models.Data.Spare>
 
 @{
     ViewData["Title"] = "Запчасти";
@@ -16,29 +17,47 @@
         <i class="far fa-plus-square"></i> Добавить запчасть
     </a>
 </h6>
+
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Найти по имени: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
+            <input type="submit" value="Найти" class="btn btn-default" /> | 
+            <a asp-action="Index">Вернуться к полному списку</a>
+        </p>
+    </div>
+</form>
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.TitleSpare)
+                @* <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">@Html.DisplayNameFor(model => model.TitleSpare)</a> *@
+                <a asp-action="Index" asp-route-sortOrder="@ViewBag.TitleSort" asp-route-currentFilter="@ViewData["CurrentFilter"]">Title Spare</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
+                @* @Html.DisplayNameFor(model => model.Description) *@
+                Description
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Price)
+                @* @Html.DisplayNameFor(model => model.Price) *@
+                <a asp-action="Index" asp-route-sortOrder="@ViewBag.PriceSort" asp-route-currentFilter="@ViewData["CurrentFilter"]">Price</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Category)
+                @* @Html.DisplayNameFor(model => model.Category) *@
+                <a asp-action="Index" asp-route-sortOrder="@ViewBag.CategorySort" asp-route-currentFilter="@ViewData["CurrentFilter"]">Category</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Article)
+                @* @Html.DisplayNameFor(model => model.Article) *@
+                Article
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CarBrand)
+                @* @Html.DisplayNameFor(model => model.CarBrand) *@
+                <a asp-action="Index" asp-route-sortOrder="@ViewBag.CarBrandSort" asp-route-currentFilter="@ViewData["CurrentFilter"]">CarBrand</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CarModel)
+                @* @Html.DisplayNameFor(model => model.CarModel) *@
+                <a asp-action="Index" asp-route-sortOrder="@ViewBag.CarModelSort" asp-route-currentFilter="@ViewData["CurrentFilter"]">CarModel</a>
             </th>
             <th></th>
         </tr>
@@ -82,3 +101,23 @@
 }
     </tbody>
 </table>
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex - 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @prevDisabled">
+    Назад
+</a>
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex + 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @nextDisabled">
+    Вперёд
+</a>
